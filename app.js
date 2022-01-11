@@ -8,11 +8,35 @@ const typeDefs = gql`
   type Query {
     greeting: String
   }
+
+  type Info {
+    name: String
+    description: String
+    github: String
+    email: String
+    position: String
+    age: Int
+  }
+
+  type Query {
+    info: Info
+  }
 `;
+
+
+const info = {
+  name: 'Ching Hui',
+  description: "I'm a Uaena, also a frontend developer :)",
+  github: 'https://github.com/ChingHuiHui',
+  email: 'sunny70624@gmail.com',
+  position: 'Frontend developer',
+  age: 22,
+}
 
 const resolvers = {
   Query: {
     greeting: () => 'Hello HUIHUI GraphQL world!👋',
+    info: () => info
   },
 };
 
