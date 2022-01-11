@@ -1,4 +1,8 @@
 const { ApolloServer, gql } = require('apollo-server')
+const { 
+  ApolloServerPluginLandingPageProductionDefault,
+  ApolloServerPluginLandingPageLocalDefault
+} = require('apollo-server-core');
 
 const typeDefs = gql`
   type Query {
@@ -12,7 +16,15 @@ const resolvers = {
   },
 };
 
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ 
+  typeDefs, 
+  resolvers, 
+  plugins: [
+    process.env.NODE_ENV === 'production' ?
+      ApolloServerPluginLandingPageProductionDefault({ footer: false }) :
+      ApolloServerPluginLandingPageLocalDefault({ footer: false })
+  ]
+});
 
 server
   .listen({ port: process.env.PORT || 9000 })
